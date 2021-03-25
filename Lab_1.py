@@ -98,12 +98,12 @@ while game==True:
         print("Jugador 1")
         mazo, mazo_falso, score1, again= playing(mazo,mazo_falso,score1)
         if again!="Si":
-            print("Jugador 1:" , score1 ,"puntos")
+            print("···Jugador 1:" , score1 ,"puntos···")
             a=1
             print_mesa(mazo_falso)
             print()
         else:
-            print("Jugador 1:" , score1 ,"puntos")
+            print("···Jugador 1:" , score1 ,"puntos···")
             total=score1+score2
             if total==(cartas):
                 game=False
@@ -123,11 +123,11 @@ while game==True:
         mazo, mazo_falso, score2, again= playing(mazo,mazo_falso,score2)
         if again!="Si":
             b=1
-            print("Jugador 2:" , score2 ,"puntos")
+            print("···Jugador 2:" , score2 ,"puntos···")
             print_mesa(mazo_falso)
             print()
         else:
-            print("Jugador 2:" , score2 ,"puntos")
+            print("···Jugador 2:" , score2 ,"puntos···")
             total=score1+score2
             if total==(cartas):
                 game=False
@@ -135,11 +135,7 @@ while game==True:
             print_mesa(mazo_falso)
             print()
     
-        
-
-
-
-
+    
 if score1>score2:
     print("Ganó el jugador 1")
 
@@ -149,5 +145,3 @@ elif score1<score2:
 else:
     print("Empate")
 
-
-    
