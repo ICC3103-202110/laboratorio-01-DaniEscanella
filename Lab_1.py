@@ -85,22 +85,69 @@ mazo_falso=generar_matrices((cartas*2),mazo_falso)
 
 
 print_mesa(mazo_falso)
+print()
 game=True
 score1=0
 score2=0
 while game==True:
+    
     print("----------")
     a=0
     while a==0:
+        
         print("Jugador 1")
         mazo, mazo_falso, score1, again= playing(mazo,mazo_falso,score1)
         if again!="Si":
+            print("Jugador 1:" , score1 ,"puntos")
             a=1
-    print(score1)
-    print_mesa(mazo_falso)
+            print_mesa(mazo_falso)
+            print()
+        else:
+            print("Jugador 1:" , score1 ,"puntos")
+            total=score1+score2
+            if total==(cartas):
+                game=False
+                a=1
+            print_mesa(mazo_falso)
+            print()
+    b=0
+    total=score1+score2
+    if total==cartas:
+        game=False
+        b=1
+    
+    print("----------")
+    
+    while b==0:
+        print("Jugador 2")
+        mazo, mazo_falso, score2, again= playing(mazo,mazo_falso,score2)
+        if again!="Si":
+            b=1
+            print("Jugador 2:" , score2 ,"puntos")
+            print_mesa(mazo_falso)
+            print()
+        else:
+            print("Jugador 2:" , score2 ,"puntos")
+            total=score1+score2
+            if total==(cartas):
+                game=False
+                b=1
+            print_mesa(mazo_falso)
+            print()
+    
+        
+
+
+
+
+if score1>score2:
+    print("Ganó el jugador 1")
+
+elif score1<score2:
+    print("Ganó el jugador 2")
+
+else:
+    print("Empate")
 
 
     
-
-
-    game=False
