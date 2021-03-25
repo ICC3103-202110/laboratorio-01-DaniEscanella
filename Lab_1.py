@@ -1,57 +1,75 @@
-from numpy import random 
+import random 
 def generar_matrices(cartas,mazo):
-    if cartas>10: 
+    if (cartas)>10: 
         columns=10
         cant_lines=cartas//10
         if (cartas%10)!=0:
             cant_lines+=1
     else:
-        columns=cartas
+        columns=cartas//2
         cant_lines=2
     mazo_final=[]
     for j in range(cant_lines):
         one=[]
         for i in range(columns):
             if len(mazo)!=0:
-                len_=len(mazo)
-                random_=random.randint(len_)
-                one.append(mazo[random_])
-                mazo.pop(random_)
+                one.append(mazo[0])
+                mazo.pop(0)
             else:
                 one.append(" ")
         mazo_final.append(one)
     return mazo_final
 
-
-        
-
-
-
-def imprimir_mesa(mazo,mazo_falso,theone):
-    contador=len(mazo)
-    cont=0
-    while contador!=0:
-        coordenadas="  "
+def print_mesa(mazo):
+    for k in range(len(mazo)):
+        coordenadas="   "
         fila=" "
-        for k in range(theone):
-            coordenadas+=str(k)+" "
-            if contador==len(mazo):
-                fila+=str(mazo_falso[cont][k])+" "
-            
-        if cont==0:
+        for j in range(len(mazo[0])):
+            coordenadas+=str(j)+"  "
+            fila+=str(mazo[k][j])+"  "
+        if k==0:
             print(coordenadas)
-        elif cont>0 and cont<11:
-            print(" "+str(cont-1)+fila)
+            print(" "+str(k)+fila)
+            
+        elif k>0 and k<11:
+            print(" "+str(k)+fila)
         else:
-            print(str(cont-1)+fila)
+            print(str(k)+fila)
 
 
+def playing(mazo,mazo_falso,puntos):
+    play_1=str(input("Elija su primera coordenada: ej: 1,0 "))
+    play_1=play_1.split(",")
+    aa=mazo_falso[int(play_1[1])][int(play_1[0])]
+    mazo_falso[int(play_1[1])][int(play_1[0])]=mazo[int(play_1[1])][int(play_1[0])]
+    print_mesa(mazo_falso)
+    play_2=str(input("Elija su segunda coordenada: "))
+    play_2=play_2.split(",")
+    bb=mazo_falso[int(play_2[1])][int(play_2[0])]
+    mazo_falso[int(play_2[1])][int(play_2[0])]=mazo[int(play_2[1])][int(play_2[0])]
+    print_mesa(mazo_falso)
+    a=mazo_falso[int(play_1[1])][int(play_1[0])]
+    b=mazo_falso[int(play_2[1])][int(play_2[0])]
+    if a==b:
+        puntos+=1
+        mazo_falso[int(play_1[1])][int(play_1[0])]=" "
+        mazo[int(play_1[1])][int(play_1[0])]=" "
+        mazo_falso[int(play_2[1])][int(play_2[0])]=" "
+        mazo[int(play_2[1])][int(play_2[0])]=" "
+        again="Si"
+        return mazo, mazo_falso, puntos, again
+    else:
+        mazo_falso[int(play_1[1])][int(play_1[0])]=aa
+        mazo[int(play_1[1])][int(play_1[0])]=a
+        mazo_falso[int(play_2[1])][int(play_2[0])]=bb
+        mazo[int(play_2[1])][int(play_2[0])]=b
+        again="No"
+        return mazo, mazo_falso, puntos, again
+
+    
 
 cartas=int(input("Inserte mazo:"))
-if cartas>10:
-    theone=10
-else:
-    theone=cartas
+
 mazo=[]
 mazo_falso=[]
 for a in range(cartas):
@@ -60,6 +78,29 @@ for a in range(cartas):
     mazo_falso.append("*")
     mazo_falso.append("*")
 
-print(mazo)
-mazo=generar_matrices(cartas,mazo)
-print(mazo)
+random.shuffle(mazo)
+random.shuffle(mazo_falso)
+mazo=generar_matrices((cartas*2),mazo)
+mazo_falso=generar_matrices((cartas*2),mazo_falso)
+
+
+print_mesa(mazo_falso)
+game=True
+score1=0
+score2=0
+while game==True:
+    print("----------")
+    a=0
+    while a==0:
+        print("Jugador 1")
+        mazo, mazo_falso, score1, again= playing(mazo,mazo_falso,score1)
+        if again!="Si":
+            a=1
+    print(score1)
+    print_mesa(mazo_falso)
+
+
+    
+
+
+    game=False
